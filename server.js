@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-
+const sql = require("./sql");
 
 const app = express();
 
@@ -11,7 +11,8 @@ app.use(cors(corsOptions));
 
 
 app.listen(8000, () => {
-    console.log("Server is started and listening.")
+    console.log("Server is started and listening.");
+    sql.init();
 });
 
 app.get("/", function(request, response) {
