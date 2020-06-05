@@ -1,12 +1,12 @@
 module.exports = [
     {
         id: 1,
-        title: 'My Gaara article',
-        content: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        description: 'Red hair and demon eyes, folks.',
-        key: 'gaara-first',
-        date: new Date(),
-        imageUrl: 'https://www.comboinfinito.com.br/principal/wp-content/uploads/2018/05/boruto-gaara.jpg'
+            title: 'My Gaara article',
+            content: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            description: 'Red hair and demon eyes, folks.',
+            key: 'gaara-first',
+            date: new Date(),
+            imageUrl: 'https://www.comboinfinito.com.br/principal/wp-content/uploads/2018/05/boruto-gaara.jpg'
     },
 
     {
