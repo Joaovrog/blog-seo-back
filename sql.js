@@ -16,7 +16,8 @@ const Article = sequelize.define('article', {
     content: { type: Sequelize.TEXT },
     description: { type: Sequelize.TEXT },
     imageUrl: { type: Sequelize.STRING },
-    viewCount: { type: Sequelize.INTEGER }
+    viewCount: { type: Sequelize.INTEGER },
+    published: { type: Sequelize.BOOLEAN },
 });
 
 
@@ -36,7 +37,8 @@ init = function() {
             description: 'Red hair and demon eyes, folks.',
             key: 'gaara-first',
             date: new Date(),
-            imageUrl: 'https://www.comboinfinito.com.br/principal/wp-content/uploads/2018/05/boruto-gaara.jpg'
+            imageUrl: 'https://www.comboinfinito.com.br/principal/wp-content/uploads/2018/05/boruto-gaara.jpg',
+            published: true
         });
 
         Article.create({
@@ -46,23 +48,27 @@ init = function() {
             key: 'shinki-art',
             date: new Date(),
             imageUrl: 'https://pm1.narvii.com/6509/f8ede42610c9695bc4500d82d0c6d8a0cbb4c107_00.jpg',
+            published: false
 
         });
     });
 };
 
 getAllArticles = function(callback) {
-    Article.findAll({ order: sequelize.literal("date DESC") }).then(articles => callback(articles));
+    Article.findAll({ order: sequelize.literal("date DESC"), where: { published: true } }).then(articles => callback(articles));
 };
 
 getArticleByKey = function(options, callback) {
-    Article.findOne({ where: { key: options.key }}).then(article =>  {
+    Article.findOne({ where: { key: options.key, published: true }}).then(article =>  {
         if (article != null) {
             article.update( {viewCount: ++article.viewCount});
             callback(article);
         }
-    });
-        
+    });  
+};
+
+getDashboardArticles = function(callback) {
+    Article.findAll({ order: sequelize.literal("date DESC") }).then(articles => callback(articles));
 };
 
 
@@ -71,3 +77,4 @@ getArticleByKey = function(options, callback) {
 module.exports.init = init;
 module.exports.getAllArticles = getAllArticles;
 module.exports.getArticleByKey = getArticleByKey;
+module.exports.getDashboardArticles = getDashboardArticles;
