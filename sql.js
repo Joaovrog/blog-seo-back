@@ -16,6 +16,7 @@ const Article = sequelize.define('article', {
     content: { type: Sequelize.TEXT },
     description: { type: Sequelize.TEXT },
     imageUrl: { type: Sequelize.STRING },
+    viewCount: { type: Sequelize.INTEGER }
 });
 
 
@@ -44,7 +45,8 @@ init = function() {
             description: 'He is Gaara`s son.',
             key: 'shinki-art',
             date: new Date(),
-            imageUrl: 'https://pm1.narvii.com/6509/f8ede42610c9695bc4500d82d0c6d8a0cbb4c107_00.jpg'
+            imageUrl: 'https://pm1.narvii.com/6509/f8ede42610c9695bc4500d82d0c6d8a0cbb4c107_00.jpg',
+
         });
     });
 };
@@ -54,8 +56,16 @@ getAllArticles = function(callback) {
 };
 
 getArticleByKey = function(options, callback) {
-    Article.findOne({ where: { key: options.key }}).then(article => callback(article));
+    Article.findOne({ where: { key: options.key }}).then(article =>  {
+        if (article != null) {
+            article.update( {viewCount: ++article.viewCount});
+            callback(article);
+        }
+    });
+        
 };
+
+
 
 
 module.exports.init = init;
