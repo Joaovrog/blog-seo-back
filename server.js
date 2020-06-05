@@ -19,4 +19,4 @@ app.get("/", function(request, response) {
     response.send("Hello, Node!");
 });
 
-require("./articles.js")(app);
+require("./articles.js")(app, sql);

@@ -1,9 +1,11 @@
 const ARTICLES = require("./mock-articles");
 
-module.exports = function(app) {
+module.exports = function(app, sql) {
 
     app.get("/articles", function(request, response) {
-        response.send(ARTICLES);
+        sql.getAllArticles(function(result) {
+            response.send(result);
+        });
     });
 
     app.get("/articles/:key", function(request, response) {
@@ -11,6 +13,4 @@ module.exports = function(app) {
             ARTICLES.filter(article => article.key === request.params.key)[0]
             );
     });
-
-
 };

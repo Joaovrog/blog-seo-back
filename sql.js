@@ -49,4 +49,10 @@ init = function() {
     });
 };
 
+getAllArticles = function(callback) {
+    Article.findAll({ order: sequelize.literal("date DESC") }).then(articles => callback(articles));
+};
+
+
 module.exports.init = init;
+module.exports.getAllArticles = getAllArticles;
